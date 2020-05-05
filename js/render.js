@@ -973,6 +973,7 @@ function addEventListeners() {
     e.preventDefault();
     if (!cube.moving) {
       cube.move('uruRUdrrUrURuRurrDUU')
+      cube.movesToSolve = []
     }
   })
 
