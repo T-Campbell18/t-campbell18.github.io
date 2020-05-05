@@ -66,21 +66,6 @@ function init() {
   addEventListeners();
 }
 
-function addRubiksCube(size, speed, colors) {
-  cube = new Cube(size, speed, colors);
-  let cubes = cube.cubes;
-  for (let i = 0; i < cubes.length; i++) {
-    scene.add(cubes[i]);
-  }
-}
-
-function removeRubiksCube() {
-  let cubes = cube.cubes;
-  for (let i = 0; i < cubes.length; i++) {
-    scene.remove(cubes[i]);
-  }
-}
-
 function addEventListeners() {
   window.addEventListener("resize", onWindowResize, false);
 
@@ -1155,6 +1140,21 @@ function addEventListeners() {
   }, false);
 }
 
+function addRubiksCube(size, speed, colors) {
+  cube = new Cube(size, speed, colors);
+  let cubes = cube.cubes;
+  for (let i = 0; i < cubes.length; i++) {
+    scene.add(cubes[i]);
+  }
+}
+
+function removeRubiksCube() {
+  let cubes = cube.cubes;
+  for (let i = 0; i < cubes.length; i++) {
+    scene.remove(cubes[i]);
+  }
+}
+
 function resetRubiksCube() {
   var size = cube.size;
   var speed = cube.speed;
@@ -1164,8 +1164,11 @@ function resetRubiksCube() {
 
 function onKeyDown(event) {
   var key = event.key;
-  cube.move(event.key);
-  console.log(event.key)
+  if (key.length == 1){
+    cube.move(event.key);
+    console.log(event.key)
+  }
+
 };
 
 function onWindowResize() {
