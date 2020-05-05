@@ -7,7 +7,7 @@ var colorShow = false
 var pllShow = false
 var controlsShow = false
 var ollShow = false
-var waitTime = 8000
+var waitTime = 7500
 var exShow = false
 
 var colors = [0xFF5900, 0xB90000, 0xf8f8ff, 0xFFD500, 0x009B48, 0x0045AD]
