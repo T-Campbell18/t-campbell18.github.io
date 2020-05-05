@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Rubiks's Cube</title>
+    <style>
+      .ui {
+        position: absolute;
+        z-index: 99;
+        margin: auto;
+        left: 50%;
+        top: 5%;
+        transform: translate(-50%, -50%);
+      }
+      .ui2 {
+        position: absolute;
+        z-index: 99;
+        left: 50%;
+        top: 15%;
+        transform: translate(-50%, -50%);
+      }
+      .ui3 {
+        position: absolute;
+        z-index: 99;
+        left: 50%;
+        top: 12%;
+        transform: translate(-50%, -50%);
+      }
+      .alg {
+        position: absolute;
+        z-index: 99;
+        left: 50%;
+        top: 25%;
+        transform: translate(-50%, -50%);
+      }
+      body {
+        overflow: hidden;
+        margin: 0;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container justify-content-md-center ui"style="overflow: auto; white-space: nowrap;">
+      <br>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary" id="scramble">Scramble</button>
+        <button type="button" class="btn btn-secondary" id="solve">Solve</button>
+        <button type="button" class="btn btn-secondary" id="undo">Undo</button>
+        <button type="button" class="btn btn-secondary" id="reset">Reset</button>
+      </div>
+
+      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="speeed">
+        <label class="btn btn-secondary active">
+          <input value=".05" type="radio" name="options" id="slow" autocomplete="off" > Slow
+        </label>
+        <label class="btn btn-secondary">
+          <input value=".18" type="radio" name="options" id="normal" autocomplete="off" checked> Normal
+        </label>
+        <label class="btn btn-secondary">
+          <input value=".25" type="radio" name="options" id="fast" autocomplete="off"> Fast
+        </label>
+        <label class="btn btn-secondary">
+          <input value=".6" type="radio" name="options" id="veryfast" autocomplete="off"> Very Fast
+        </label>
+      </div>
+
+      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="speeed">
+        <label class="btn btn-secondary active">
+          <input value="2" type="radio" name="options" id="2x2" autocomplete="off" > 2x2
+        </label>
+        <label class="btn btn-secondary">
+          <input value="3" type="radio" name="options" id="3x3" autocomplete="off" checked> 3x3
+        </label>
+        <label class="btn btn-secondary">
+          <input value="4" type="radio" name="options" id="4x4" autocomplete="off"> 4x4
+        </label>
+        <label class="btn btn-secondary">
+          <input value="5" type="radio" name="options" id="5x5" autocomplete="off"> 5x5
+        </label>
+      </div>
+      <button type="button" name="button" class="btn btn-secondary" id="controls-button">Controls</button>
+      <button type="button" name="button" class="btn btn-secondary" id="color-button">Colors</button>
+      <button type="button" name="button" class="btn btn-secondary" id="pll-button">PLL Trainer</button>
+      <button type="button" name="button" class="btn btn-secondary" id="oll-button">OLL Trainer</button>
+      <button type="button" name="button" class="btn btn-secondary" id="tutorial-button">Example</button>
+    </div>
+
+    <div class="container ui3" id="colorpicker" style="display: none;">
+    	<input class="jscolor btn btn-outline-dark" value="ff5900" size="6" id="color0">
+      <input class="jscolor btn btn-outline-dark" value="b90000" size="6" id="color1">
+      <input class="jscolor btn btn-outline-dark" value="f8f8ff" size="6" id="color2">
+      <input class="jscolor btn btn-outline-dark" value="ffd500" size="6" id="color3">
+      <input class="jscolor btn btn-outline-dark" value="009b48" size="6" id="color4">
+      <input class="jscolor btn btn-outline-dark" value="0045ad" size="6" id="color5">
+      <button class="btn btn-outline-dark" size="6" id="reset-color">Reset Color</button>
+    </div>
+    <div class="container ui2" id="pll"style="display: none; overflow: auto; white-space: nowrap;">
+      <a href="#" id="Aa"><img src="img/aa.png" alt="" width="100" height="100"></a>
+      <a href="#" id="Ab"><img src="img/ab.png" alt="" width="100" height="100"></a>
+      <a href="#" id="Ff"><img src="img/ff.png" alt="" width="100" height="100"></a>
+      <a href="#" id="Ja"><img src="img/ja.png" alt="" width="100" height="100"></a>
+      <a href="#" id="Jb"><img src="img/jb.png" alt="" width="100" height="100"></a>
+      <a href="#" id="Ra"><img src="img/ra.png" alt="" width="100" height="100"></a>
+      <a href="#" id="Rb"><img src="img/rb.png" alt="" width="100" height="100"></a>
+      <a href="#" id="T"><img src="img/t.png" alt="" width="100" height="100"></a>
+      <a href="#" id="E"><img src="img/e.png" alt="" width="100" height="100"></a>
+      <a href="#" id="Na"><img src="img/na.png" alt="" width="100" height="100"></a>
+      <a href="#" id="Nb"><img src="img/nb.png" alt="" width="100" height="100"></a>
+      <a href="#" id="V"><img src="img/v.png" alt="" width="100" height="100"></a>
+      <a href="#" id="Yy"><img src="img/yy.png" alt="" width="100" height="100"></a>
+      <a href="#" id="H"><img src="img/h.png" alt="" width="100" height="100"></a>
+      <a href="#" id="Ua"><img src="img/ua.png" alt="" width="100" height="100"></a>
+      <a href="#" id="Ub"><img src="img/ub.png" alt="" width="100" height="100"></a>
+      <a href="#" id="Zz"><img src="img/zz.png" alt="" width="100" height="100"></a>
+      <a href="#" id="Ga"><img src="img/ga.png" alt="" width="100" height="100"></a>
+      <a href="#" id="Gb"><img src="img/gb.png" alt="" width="100" height="100"></a>
+      <a href="#" id="Gc"><img src="img/gc.png" alt="" width="100" height="100"></a>
+      <a href="#" id="Gd"><img src="img/gd.png" alt="" width="100" height="100"></a>
+    </div>
+    <div class="container ui2" id="controls"style="display: none;">
+      <a href="#" id="u"><img src="img/u.png" alt="" width="100" height="100"></a>
+      <a href="#" id="d"><img src="img/d.png" alt="" width="100" height="100"></a>
+      <a href="#" id="r"><img src="img/r.png" alt="" width="100" height="100"></a>
+      <a href="#" id="l"><img src="img/l.png" alt="" width="100" height="100"></a>
+      <a href="#" id="f"><img src="img/f.png" alt="" width="100" height="100"></a>
+      <a href="#" id="b"><img src="img/b.png" alt="" width="100" height="100"></a>
+      <a href="#" id="x"><img src="img/x.png" alt="" width="100" height="100"></a>
+      <a href="#" id="y"><img src="img/y.png" alt="" width="100" height="100"></a>
+      <a href="#" id="z"><img src="img/z.png" alt="" width="100" height="100"></a>
+      <a href="#" id="m"><img src="img/m.png" alt="" width="100" height="100"></a>
+    </div>
+
+    <div class="container ui2" id="oll"style="display: none; overflow: auto; white-space: nowrap;">
+      <a href="#" id="dot"><img src="img/dot.png" alt="" width="100" height="100"></a>
+      <a href="#" id="line"><img src="img/line.png" alt="" width="100" height="100"></a>
+      <a href="#" id="lol"><img src="img/lol.png" alt="" width="100" height="100"></a>
+      <a href="#" id="antisune"><img src="img/antisune.png" alt="" width="100" height="100"></a>
+      <a href="#" id="cross"><img src="img/cross.png" alt="" width="100" height="100"></a>
+      <a href="#" id="tie"><img src="img/tie.png" alt="" width="100" height="100"></a>
+      <a href="#" id="pi"><img src="img/pi.png" alt="" width="100" height="100"></a>
+      <a href="#" id="sune"><img src="img/sune.png" alt="" width="100" height="100"></a>
+      <a href="#" id="cha"><img src="img/cha.png" alt="" width="100" height="100"></a>
+      <a href="#" id="head"><img src="img/head.png" alt="" width="100" height="100"></a>
+    </div>
+    <div class="container ui3" id="ex" style="display: none; overflow: auto; white-space: nowrap;">
+      <button class="btn btn-outline-dark" id="wc">1: White Cross</button>
+      <button class="btn btn-outline-dark" id="f2l">2: First 2 Layers</button>
+      <button class="btn btn-outline-dark" id="to">3: 2 Look-OLL</button>
+      <button class="btn btn-outline-dark" id="tp">4: PLL</button>
+    </div>
+    <div class="alg">
+      <h1 id="algo"></h1>
+    </div>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script src="js/jscolor.js"></script>
+    <script src="js/three.js"></script>
+    <script src="js/RoundedBoxGeometry.js"></script>
+    <script src="js/RoundedPlaneGeometry.js"></script>
+    <script src="js/OrbitControls.js"></script>
+
+    <script src="js/cube.js"></script>
+    <script src="js/render.js"></script>
+  </body>
+</html>
