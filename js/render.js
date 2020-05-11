@@ -282,7 +282,7 @@ function addEventListeners() {
     e.preventDefault();
     if (!cube.moving) {
       // controls.enabled = true
-      cube.move("xdluLDlULdlULDluL")
+      cube.move("xdluLDlULdlULDluLX")
       let s = cube.speed
       cube.speed = 2
       controls.autoRotate = true
