@@ -1221,7 +1221,7 @@ function addEventListeners() {
       if (Math.abs(endx - startx) > 50 && endx > startx && Math.abs(endy - starty) < 25) {
         cube.move("y")
       }
-      if (Math.abs(endx - startx) > 50 && endx < startx && Math.abs(endy - starty) > 25) {
+      if (Math.abs(endx - startx) > 50 && endx < startx && Math.abs(endy - starty) < 25) {
         cube.move("Y")
       }
     }
