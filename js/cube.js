@@ -157,6 +157,18 @@ Cube.prototype.setUpRotate = function() {
     if (this.currentMove.layer == -3) {
       face = 0
     }
+    if (this.currentMove.layer == -4) {
+      face = 1/6
+    }
+    if (this.currentMove.layer == -5) {
+      face = -1/6
+    }
+    if (this.currentMove.layer == -6) {
+      face = 1/3
+    }
+    if (this.currentMove.layer == -7) {
+      face = -1/3
+    }
 
     for (let i = 0; i < this.cubes.length; i++) {
       if (equal(this.cubes[i].position[this.currentMove.axis], face)) {
@@ -197,31 +209,35 @@ Cube.prototype.updateColors = function(colors) {
 
 Cube.prototype.scramble = function() {
   let scramble = []
-  let moves = "frubldFRUBLDM"
+  let moves = "fFrRbBlLuUdD"
+  if (this.size % 2 == 0) {
+    moves += "opOP"
+  } else {
+    moves += "Mm"
+  }
+  if (this.size == 5) {
+    moves += "TCtc"
+  }
   scramble.push(moves.charAt(Math.floor(Math.random() * 12)))
   let n = this.size > 3 ? 35 : 20
+  n += this.size == 5 ? 10 : 0
   for (let i = 0; i < n; i++) {
-    let z = Math.floor(Math.random() * 13)
-    if (z == 12 && this.size % 2 == 1){
-      scramble.push("M")
-      continue
-    } else if (z == 12) {
-      i--
-      continue
+    let z = Math.floor(Math.random() * moves.length)
+    let rt = z + 1;
+    let lt = z - 1;
+    let add = true
+    for (let j = z - 1; j <= z + 1; j++) {
+      if (j < 0 || j >= moves.length) {
+        continue
+      }
+      if (moves.charAt(j) == scramble[scramble.length - 1]) {
+        add = false
+      }
     }
-    if (z < 6) {
-      if (scramble[scramble.length - 1] === moves.charAt(z+6)) {
-        i--;
-        continue;
-      }
+    if (add) {
       scramble.push(moves.charAt(z))
-
     } else {
-      if (scramble[scramble.length - 1] === moves.charAt(z-6)) {
-        i--;
-        continue;
-      }
-      scramble.push(moves.charAt(z))
+      i--
     }
   }
   this.move(scramble)
@@ -409,32 +425,90 @@ Cube.prototype.move = function(moves) {
       }
     }
     // Special moves for OLL
-    else if (move === 'W') {
+    else if (move === 'W' && this.size == 3) {
       this.moves.push(new Move(-3, 1, 'x'));
       if (!this.isSolving) {
         if (this.movesToSolve[0] === 'W') {this.movesToSolve.shift(); continue}
         this.movesToSolve.unshift('w')
       }
     }
-    else if (move === 'w') {
+    else if (move === 'w' && this.size == 3) {
       this.moves.push(new Move(-3, -1, 'x'));
       if (!this.isSolving) {
         if (this.movesToSolve[0] === 'w') {this.movesToSolve.shift(); continue}
         this.movesToSolve.unshift('W')
       }
     }
-    if (move === 'Q') {
+    if (move === 'Q' && this.size == 3) {
       this.moves.push(new Move(-3, 1, 'z'));
       if (!this.isSolving) {
         if (this.movesToSolve[0] === 'Q') {this.movesToSolve.shift(); continue}
         this.movesToSolve.unshift('q')
       }
     }
-    else if (move === 'q') {
+    else if (move === 'q' && this.size == 3) {
       this.moves.push(new Move(-3, -1, 'z'))
       if (!this.isSolving) {
         if (this.movesToSolve[0] === 'q') {this.movesToSolve.shift(); continue}
         this.movesToSolve.unshift('Q')
+      }
+    }
+    else if (move === 'p' && this.size == 4) {
+      this.moves.push(new Move(-4, -1, 'x'))
+      if (!this.isSolving) {
+        if (this.movesToSolve[0] === 'p') {this.movesToSolve.shift(); continue}
+        this.movesToSolve.unshift('P')
+      }
+    }
+    // extra 4x4 moves for middle
+    else if (move === 'P' && this.size == 4) {
+      this.moves.push(new Move(-4, 1, 'x'))
+      if (!this.isSolving) {
+        if (this.movesToSolve[0] === 'P') {this.movesToSolve.shift(); continue}
+        this.movesToSolve.unshift('p')
+      }
+    }
+    else if (move === 'o' && this.size == 4) {
+      this.moves.push(new Move(-5, -1, 'x'))
+      if (!this.isSolving) {
+        if (this.movesToSolve[0] === 'o') {this.movesToSolve.shift(); continue}
+        this.movesToSolve.unshift('O')
+      }
+    }
+    else if (move === 'O' && this.size == 4) {
+      this.moves.push(new Move(-5, 1, 'x'))
+      if (!this.isSolving) {
+        if (this.movesToSolve[0] === 'O') {this.movesToSolve.shift(); continue}
+        this.movesToSolve.unshift('o')
+      }
+    }
+    // extra 5x5 moves for middle layers
+    else if (move === 'T' && this.size == 5) {
+      this.moves.push(new Move(-6, 1, 'x'))
+      if (!this.isSolving) {
+        if (this.movesToSolve[0] === 'T') {this.movesToSolve.shift(); continue}
+        this.movesToSolve.unshift('t')
+      }
+    }
+    else if (move === 't' && this.size == 5) {
+      this.moves.push(new Move(-6, -1, 'x'))
+      if (!this.isSolving) {
+        if (this.movesToSolve[0] === 't') {this.movesToSolve.shift(); continue}
+        this.movesToSolve.unshift('T')
+      }
+    }
+    else if (move === 'C' && this.size == 5) {
+      this.moves.push(new Move(-7, 1, 'x'))
+      if (!this.isSolving) {
+        if (this.movesToSolve[0] === 'C') {this.movesToSolve.shift(); continue}
+        this.movesToSolve.unshift('c')
+      }
+    }
+    else if (move === 'c' && this.size == 5) {
+      this.moves.push(new Move(-7, -1, 'x'))
+      if (!this.isSolving) {
+        if (this.movesToSolve[0] === 'c') {this.movesToSolve.shift(); continue}
+        this.movesToSolve.unshift('C')
       }
     }
   }

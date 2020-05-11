@@ -997,6 +997,16 @@ function addEventListeners() {
           cube.move("M")
         }
       }
+      // R with yellow
+      if (equal(normal.x, 0) && equal(normal.y, 1) && equal(normal.z, 0) && equal(pos.y, o) && equal(pos.x, 0)) {
+        if (Math.abs(endx - startx) > 10 && endx > startx && Math.abs(endy - starty) > 15 && endy < starty) {
+          cube.move("m")
+
+        }
+        if (Math.abs(endx - startx) > 10 && endx < startx && Math.abs(endy - starty) > 15 && endy > starty) {
+          cube.move("M")
+        }
+      }
 
       // R with blue
       if (equal(normal.x, 0) && equal(normal.y, 0) && equal(normal.z, 1) && equal(pos.x, o) && equal(pos.z, o)) {
@@ -1114,6 +1124,86 @@ function addEventListeners() {
           cube.move("B")
         }
       }
+      // 4x4
+      if (equal(normal.x, 0) && equal(normal.y, 0) && equal(normal.z, 1) && equal(pos.x, 1/6) && equal(pos.z, o)) {
+        if (Math.abs(endy - starty) > 50 && endy < starty) {
+          cube.move("P")
+        }
+        if (Math.abs(endy - starty) > 50 && endy > starty) {
+          cube.move("p")
+        }
+      }
+      // 4x4
+      if (equal(normal.x, 0) && equal(normal.y, 0) && equal(normal.z, 1) && equal(pos.x, -1/6) && equal(pos.z, o)) {
+        if (Math.abs(endy - starty) > 50 && endy < starty) {
+          cube.move("O")
+        }
+        if (Math.abs(endy - starty) > 50 && endy > starty) {
+          cube.move("o")
+        }
+      }
+      // 4x4
+      if (equal(normal.x, 0) && equal(normal.y, 1) && equal(normal.z, 0) && equal(pos.y, o) && equal(pos.x, -1/6)) {
+        if (Math.abs(endx - startx) > 10 && endx > startx && Math.abs(endy - starty) > 15 && endy < starty) {
+          cube.move("O")
+
+        }
+        if (Math.abs(endx - startx) > 10 && endx < startx && Math.abs(endy - starty) > 15 && endy > starty) {
+          cube.move("o")
+        }
+      }
+      // 4x4
+      if (equal(normal.x, 0) && equal(normal.y, 1) && equal(normal.z, 0) && equal(pos.y, o) && equal(pos.x, 1/6)) {
+        if (Math.abs(endx - startx) > 10 && endx > startx && Math.abs(endy - starty) > 15 && endy < starty) {
+          cube.move("P")
+
+        }
+        if (Math.abs(endx - startx) > 10 && endx < startx && Math.abs(endy - starty) > 15 && endy > starty) {
+          cube.move("p")
+        }
+      }
+
+
+      // 5x5
+      if (equal(normal.x, 0) && equal(normal.y, 1) && equal(normal.z, 0) && equal(pos.y, o) && equal(pos.x, 1/3)) {
+        if (Math.abs(endx - startx) > 10 && endx > startx && Math.abs(endy - starty) > 15 && endy < starty) {
+          cube.move("T")
+
+        }
+        if (Math.abs(endx - startx) > 10 && endx < startx && Math.abs(endy - starty) > 15 && endy > starty) {
+          cube.move("t")
+        }
+      }
+      // 5x5
+      if (equal(normal.x, 0) && equal(normal.y, 1) && equal(normal.z, 0) && equal(pos.y, o) && equal(pos.x, -1/3)) {
+        if (Math.abs(endx - startx) > 10 && endx > startx && Math.abs(endy - starty) > 15 && endy < starty) {
+          cube.move("C")
+
+        }
+        if (Math.abs(endx - startx) > 10 && endx < startx && Math.abs(endy - starty) > 15 && endy > starty) {
+          cube.move("c")
+        }
+      }
+      // 5x5
+      if (equal(normal.x, 0) && equal(normal.y, 0) && equal(normal.z, 1) && equal(pos.x, 1/3) && equal(pos.z, o)) {
+        if (Math.abs(endy - starty) > 50 && endy < starty) {
+          cube.move("T")
+        }
+        if (Math.abs(endy - starty) > 50 && endy > starty) {
+          cube.move("t")
+        }
+      }
+      // 5x5
+      if (equal(normal.x, 0) && equal(normal.y, 0) && equal(normal.z, 1) && equal(pos.x, -1/3) && equal(pos.z, o)) {
+        if (Math.abs(endy - starty) > 50 && endy < starty) {
+          cube.move("C")
+        }
+        if (Math.abs(endy - starty) > 50 && endy > starty) {
+          cube.move("c")
+        }
+      }
+
+
     } else {
       if (Math.abs(endx - startx) > 50 && endx < startx && Math.abs(endy - starty) > 50 && endy > starty) {
         cube.move("x")
