@@ -43,22 +43,22 @@ function Cube(size, speed, colors) {
         var x = f + i;
         var y = f + j;
         var z = f + k;
-        let edges = [];
+        let faces = [];
 
-		  	if ( i == 0 ) edges.push(0);
-		  	if ( i == m ) edges.push(1);
-		  	if ( j == 0 ) edges.push(2);
-		  	if ( j == m ) edges.push(3);
-		  	if ( k == 0 ) edges.push(4);
-		  	if ( k == m ) edges.push(5);
-        this.createCube(x, y, z, edges);
+		  	if ( i == 0 ) faces.push(0);
+		  	if ( i == m ) faces.push(1);
+		  	if ( j == 0 ) faces.push(2);
+		  	if ( j == m ) faces.push(3);
+		  	if ( k == 0 ) faces.push(4);
+		  	if ( k == m ) faces.push(5);
+        this.createCube(x, y, z, faces);
       }
     }
   }
 }
 
 
-Cube.prototype.createCube = function(x, y, z, edges) {
+Cube.prototype.createCube = function(x, y, z, faces) {
   let roundGeometry = new RoundedBoxGeometry( 1/3, .15, 3 );
   roundGeometry.computeFaceNormals()
   cube = new THREE.Mesh(roundGeometry,
@@ -73,24 +73,24 @@ Cube.prototype.createCube = function(x, y, z, edges) {
   			.01
   		);
 
-  for (let i = 0; i < edges.length; i++) {
+  for (let i = 0; i < faces.length; i++) {
     const distance = (1/3) / 2;
-    let c = this.colors[edges[i]]
+    let c = this.colors[faces[i]]
     let sticker = new THREE.Mesh(stickerGeometry, new THREE.MeshPhongMaterial({
       color : c,
       shininess: 65,
       specular: c
     }))
-    sticker.userData = edges[i]
+    sticker.userData = faces[i]
 		sticker.position.set(
-		    distance * [ - 1, 1, 0, 0, 0, 0 ][ edges[i] ],
-				distance * [ 0, 0, - 1, 1, 0, 0 ][ edges[i]],
-				distance * [ 0, 0, 0, 0, - 1, 1 ][ edges[i] ]
+		    distance * [ -1, 1, 0, 0, 0, 0 ][ faces[i] ],
+				distance * [ 0, 0, -1, 1, 0, 0 ][ faces[i] ],
+				distance * [ 0, 0, 0, 0, -1, 1 ][ faces[i] ]
 		);
 
     sticker.rotation.set(
-		    Math.PI / 2 * [ 0, 0, 1, - 1, 0, 0 ][ edges[i] ],
-				Math.PI / 2 * [ - 1, 1, 0, 0, 2, 0 ][ edges[i] ],
+		    Math.PI / 2 * [ 0, 0, 1, -1, 0, 0 ][ faces[i] ],
+				Math.PI / 2 * [ -1, 1, 0, 0, 2, 0 ][ faces[i] ],
 			  0
 		);
 		sticker.scale.set(
